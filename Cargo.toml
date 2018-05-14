@@ -1,0 +1,32 @@
+[package]
+name = "statsd"
+version = "0.1.0"
+authors = ["wayslog <wayslog@163.com>"]
+
+[lib]
+name="stats"
+path="src/lib.rs"
+
+[[bin]]
+name="statsd-proxy"
+path="bin/statsd-proxy.rs"
+
+[[bin]]
+name="statsd-worker"
+path="bin/statsd-worker.rs"
+
+[dependencies]
+log="*"
+env_logger="*"
+crossbeam="*"
+serde="*"
+serde_json="*"
+serde_derive = "*"
+num_cpus="*"
+futures="*"
+tokio="*"
+tokio-io="*"
+bytes="*"
+lazy_static="*"
+crc16="*"
+failure="*"
