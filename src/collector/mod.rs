@@ -24,7 +24,7 @@ pub fn collect(queue: Arc<MsQueue<Metrics>>) -> Result<()> {
             .into_iter()
             .map(|_| {
                 let queue = queue.clone();
-                scope.spawn(|| run_collector(&CONFIG.bind, Duration::from_secs(10), queue).unwrap())
+                scope.spawn(|| run_collector(&CONFIG.bind, Duration::from_secs(1), queue).unwrap())
             })
             .collect();
         scope.defer(|| {
@@ -32,16 +32,6 @@ pub fn collect(queue: Arc<MsQueue<Metrics>>) -> Result<()> {
         });
     });
     Ok(())
-}
-
-#[derive(Clone, Debug)]
-pub struct Metrics {}
-
-pub trait Store {
-    type Item: Clone;
-    fn store(&mut self, item: Self::Item);
-
-    fn trancate(&mut self) -> Self;
 }
 
 impl Store for Metrics {

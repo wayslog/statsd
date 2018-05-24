@@ -87,3 +87,13 @@ impl Config {
         }
     }
 }
+
+#[derive(Clone, Debug)]
+pub struct Metrics {}
+
+pub trait Store {
+    type Item: Clone;
+    fn store(&mut self, item: Self::Item);
+
+    fn trancate(&mut self) -> Self;
+}

@@ -1,3 +1,4 @@
+#![feature(test)]
 extern crate bytes;
 extern crate crc16;
 extern crate crossbeam;
@@ -8,6 +9,8 @@ extern crate net2;
 extern crate num_cpus;
 extern crate serde;
 extern crate serde_json;
+#[cfg(test)]
+extern crate test;
 extern crate tokio;
 
 #[macro_use]
@@ -22,6 +25,7 @@ extern crate serde_derive;
 pub mod backends;
 pub mod collector;
 pub mod com;
+pub mod ring;
 pub mod sender;
 
 use crossbeam::sync::MsQueue;
