@@ -97,3 +97,14 @@ pub trait Store {
 
     fn trancate(&mut self) -> Self;
 }
+
+impl Store for Metrics {
+    type Item = String;
+
+    fn store(&mut self, item: Self::Item) {
+        info!("get item {}", &item);
+    }
+    fn trancate(&mut self) -> Self {
+        Metrics {}
+    }
+}

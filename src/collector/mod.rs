@@ -24,7 +24,9 @@ pub fn collect(queue: Arc<MsQueue<Metrics>>) -> Result<()> {
             .into_iter()
             .map(|_| {
                 let queue = queue.clone();
-                scope.spawn(|| run_collector(&CONFIG.bind, Duration::from_secs(1), queue).unwrap())
+                scope.spawn(|| {
+                    run_collector(&CONFIG.bind, Duration::from_millis(100), queue).unwrap()
+                })
             })
             .collect();
         scope.defer(|| {
@@ -32,17 +34,6 @@ pub fn collect(queue: Arc<MsQueue<Metrics>>) -> Result<()> {
         });
     });
     Ok(())
-}
-
-impl Store for Metrics {
-    type Item = String;
-
-    fn store(&mut self, item: Self::Item) {
-        info!("get item {}", &item);
-    }
-    fn trancate(&mut self) -> Self {
-        Metrics {}
-    }
 }
 
 pub struct BufferInterval<T, S, I>
